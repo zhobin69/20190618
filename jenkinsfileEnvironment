@@ -1,0 +1,27 @@
+
+pipeline {
+	environment {
+		// FOO will available entire pipeline
+		FOO = 'global environment'
+	}
+	agent any
+
+	stages {
+		stage('local'){
+			environment {
+				// BAR will available only this stage
+				BAR = 'local variable'
+			}
+			steps {
+				sh 'echo FOO is ${FOO} and BAR is ${BAR}'
+			}
+
+		}
+		stage('global') {
+			steps {
+				sh 'echo FOO is ${FOO} and BAR is ${BAR}'
+			}
+		}
+	}
+}
+
